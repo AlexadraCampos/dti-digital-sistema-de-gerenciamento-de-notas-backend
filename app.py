@@ -5,35 +5,35 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
-
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 
 # 5 disciplinas fixas
 disciplinas = [
-    "Matemática",
-    "Português", 
-    "História",
-    "Geografia",
-    "Ciências"
+    "Matemática:",
+    "Português:", 
+    "História:",
+    "Geografia:",
+    "Biologia:"
 ]
 
 # 3 alunos cadastrados 
 alunos = [
     {
         "id": 1,
-        "nome": "João Silva",
+        "nome": "",
         "notas": [],  
         "frequencia": None  
     },
     {
         "id": 2,
-        "nome": "Maria Santos",
+        "nome": "",
         "notas": [],
         "frequencia": None
     },
     {
         "id": 3,
-        "nome": "Pedro Oliveira",
+        "nome": "",
         "notas": [],
         "frequencia": None
     }
@@ -54,36 +54,56 @@ def listar_alunos():
 @app.route('/alunos/<int:aluno_id>', methods=['PUT'])
 def atualizar_aluno(aluno_id):
     dados = request.json
-    
-    # Encontrar o aluno pelo ID
+
+    # Encontrar o aluno
     aluno = next((a for a in alunos if a['id'] == aluno_id), None)
-    
     if not aluno:
         return jsonify({"erro": "Aluno não encontrado"}), 404
-    
+
+    # Verifica se nome foi enviado
+    nome = dados.get('nome')
+    if not nome or nome.strip() == "":
+        return jsonify({"erro": "O nome do aluno é obrigatório"}), 400
+
+    # Verifica se notas foi enviado
     notas = dados.get('notas')
-    frequencia = dados.get('frequencia')
-    
-    # Validações
+    if not notas:
+        return jsonify({"erro": "As notas devem ser enviadas"}), 400
+
+    # Verifica se é uma lista
+    if not isinstance(notas, list):
+        return jsonify({"erro": "Notas deve ser uma lista com 5 valores"}), 400
+
+    # Verifica quantidade de notas
     if len(notas) != 5:
-        return jsonify({"erro": "Deve ter exatamente 5 notas"}), 400
-    
+        return jsonify({"erro": "Devem existir exatamente 5 notas"}), 400
+
+    # Verifica valores entre 0 e 10
     for nota in notas:
+        if not isinstance(nota, (int, float)):
+            return jsonify({"erro": "Todas as notas devem ser números"}), 400
         if not (0 <= nota <= 10):
             return jsonify({"erro": "Notas devem estar entre 0 e 10"}), 400
-    
+
+    # Verifica frequência
+    frequencia = dados.get('frequencia')
+    if frequencia is None:
+        return jsonify({"erro": "A frequência é obrigatória"}), 400
+
+    if not isinstance(frequencia, (int, float)):
+        return jsonify({"erro": "Frequência deve ser um número"}), 400
+
     if not (0 <= frequencia <= 100):
         return jsonify({"erro": "Frequência deve estar entre 0 e 100"}), 400
-    
-    # Atualizar os dados do aluno
+
+    aluno['nome'] = nome
     aluno['notas'] = notas
     aluno['frequencia'] = frequencia
-    
+
     return jsonify({
         "mensagem": f"Dados de {aluno['nome']} atualizados com sucesso",
         "aluno": aluno
     }), 200
-
 
 
 # GET /estatisticas - Calcular tudo
