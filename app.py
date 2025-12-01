@@ -42,35 +42,6 @@ alunos = [
     }
 ]
 
-professores = {
-    "email": "administrador@teste.com",
-    "senha": "teste123456"
-}
-
-
-# Login para professores
-@app.route("/login", methods=["POST"])
-def login():
-    data = request.json
-    email = data.get("email")
-    senha = data.get("senha")
-
-    professor_fixo = {
-        "email": "administrador@teste.com",
-        "senha": "teste123456"
-    }
-
-    if email != professor_fixo["email"]:
-        return jsonify({"message": "E-mail não cadastrado"}), 400
-
-    if senha != professor_fixo["senha"]:
-        return jsonify({"message": "Senha incorreta"}), 401
-
-    return jsonify({"message": "Login autorizado"}), 200
-
-
-
-
 #PUT /alunos/<id> - Atualizar notas e frequência
 @app.route('/alunos/<int:aluno_id>', methods=['PUT'])
 def atualizar_aluno(aluno_id):
