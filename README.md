@@ -3,7 +3,8 @@
 * Framewok Flask
 * Python
 
-### Caso de Uso do Sistema de Gestor Acadêmico 
+### Diagrama do Sistema
+O seguinte diagrama de caso representa o funcionamento do sistema e suas relações:
 
 ![alt text](<caso de uso.jpg>)
 
@@ -13,5 +14,7 @@ O front-end desse projeto esta em: https://github.com/AlexadraCampos/sistema_de_
 
 * Futuras melhorias:
 
-Gerador de PDF para Relatórios de Alunos.
+Emissão de relatórios em PDF
+Integração com sistema de matrícula
 
+Desenvolvido por Alexandra Cordeio
