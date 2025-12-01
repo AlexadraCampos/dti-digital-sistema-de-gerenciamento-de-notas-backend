@@ -3,6 +3,11 @@
 * Framewok Flask
 * Python
 
+* Para rodar o programa:
+
+Python app.py
+
+
 ### Diagrama do Sistema
 O seguinte diagrama de caso representa o funcionamento do sistema e suas relações:
 
