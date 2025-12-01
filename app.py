@@ -6,8 +6,6 @@ import os
 
 app = Flask(__name__)
 CORS(app)
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
-
 
 # Entrada dos dados gerais do sistema
 
@@ -41,6 +39,14 @@ alunos = [
         "frequencia": None
     }
 ]
+
+@app.route('/alunos', methods=['GET'])
+def listar_alunos():
+    return jsonify({
+        "alunos": alunos,
+        "disciplinas": disciplinas
+    }), 200
+
 
 #PUT /alunos/<id> - Atualizar notas e frequência
 @app.route('/alunos/<int:aluno_id>', methods=['PUT'])
@@ -159,5 +165,6 @@ def calcular_estatisticas():
     }), 200
 
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
