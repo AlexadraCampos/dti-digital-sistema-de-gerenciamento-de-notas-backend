@@ -2,8 +2,6 @@
 
 * Framewok Flask
 * Python
-* Hopedado no Render
-
 
 ### Caso de Uso do Sistema de Gestor Acadêmico 
 
@@ -14,3 +12,6 @@ O front-end desse projeto esta em: https://github.com/AlexadraCampos/sistema_de_
 
 
 * Futuras melhorias:
+
+Gerador de PDF para Relatórios de Alunos.
+
