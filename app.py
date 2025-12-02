@@ -11,11 +11,11 @@ CORS(app)
 
 # 5 disciplinas fixas
 disciplinas = [
-    "Matemática:",
-    "Português:", 
-    "História:",
-    "Geografia:",
-    "Biologia:"
+    "Matemática",
+    "Português", 
+    "História",
+    "Geografia",
+    "Biologia"
 ]
 
 # 3 alunos cadastrados 
@@ -23,7 +23,7 @@ alunos = [
     {
         "id": 1,
         "nome": "",
-        "notas": [],  
+        "notas": None,  
         "frequencia": None  
     },
     {
